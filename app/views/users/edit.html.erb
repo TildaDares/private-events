@@ -1,0 +1,13 @@
+<%= render '/sessions/navbar' %>
+<%= bootstrap_form_for(@user) do |f| %>
+  <div class="pt-2 shadow pb-5 mt-5 container col-lg-4 col-md-5">
+    <%= f.text_field :name, class: "text-black bg-light" %>
+    <div class="d-flex justify-content-between">
+      <%= link_to "Cancel", user_path(@user), class: "color-1 btn text-white shadow" %>
+      <%= f.submit "Submit", class: "color-3 btn text-white shadow" %>
+    </div>
+    <p class="text-center mb-3">OR</p>
+    <%= link_to "Deactivate your account", user_path(@user), method: :delete, data: { confirm: "Are you sure you want to deactivate your account?" }, class: " btn btn-block text-white btn-danger" %>
+  </div>
+<% end %>
+<%= render 'footer' %>

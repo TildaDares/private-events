@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-lg color-2 navbar-light">
+  <a href="/events" class="text-color-5 navbar-text text-decoration-none navbar-brand">Social Lite</a>
+  <button class="navbar-toggler color-5" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="justify-content-end collapse navbar-collapse navbar-nav" id="navbarToggler">
+  <% if logged_in? %>
+      <%= link_to "#{current_user.name}", user_path(current_user), class: "text-color-5 mr-3 nav-item mb-2 mb-md-1" %>
+  <% end %>
+    <%= link_to "Create Event", new_event_path, class: "color-1 btn text-white shadow mr-3 nav-item mb-2 mb-md-0" %>
+    <% if logged_in? %>
+      <%= link_to "Log Out", logout_path, method: :delete, data: { confirm: "Are you sure you want to logout?" }, class: "btn-danger btn text-white shadow nav-item" %>
+    <% else %>
+      <%= link_to "Sign In", login_path, class: "color-1 btn text-white shadow mr-1 ml-1 nav-item mb-2 mb-md-0" %>
+      <%= link_to "Sign Up", signup_path, class: "color-1 btn text-white shadow mr-1 ml-1 nav-item" %>
+    <% end %>
+  </div>   
+</nav>

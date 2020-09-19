@@ -1,0 +1,27 @@
+<%= render "navbar" %>
+<div class="mb-5"></div>
+<div class="shadow col-lg-5 m-auto pb-3 pt-4 mt-5 container-sm col-md-5">
+  <div class="row">
+    <i class="fas fa-map-marker-alt mr-4"></i>
+    <p><%= @event.location %></p>
+  </div>
+  <div class="row">
+    <i class="far fa-calendar-alt mr-4"></i>
+    <p><%= @event.start_date %> - <%= @event.end_date %></p>
+  </div>
+  <div class="row">
+    <p class="mr-2">Title:</p>
+    <p><%= @event.title %></p>
+  </div>
+  <div class="row">
+    <p class="mr-2">Description:</p>
+    <p><%= @event.description %></p>
+  </div>
+  <p>Host: <%= link_to "#{@event.creator.name}", user_path(@event.creator) %></p>
+  <% if current_user == @event.creator %>
+    <div class="d-flex justify-content-end mr-3">
+      <%= link_to '<i class="fas fa-trash mr-3"></i>'.html_safe, event_path(@event), method: :delete, data: { confirm: "Do you really want to delete this event?" } %>
+      <%= link_to '<i class="fas fa-edit mr-3"></i>'.html_safe, edit_event_path(@event) %>
+    </div>
+  <% end %>
+</div>

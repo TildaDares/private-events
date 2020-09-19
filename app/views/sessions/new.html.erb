@@ -1,0 +1,10 @@
+<%= render 'navbar' %>
+<div class="pt-2 shadow pb-5 mt-5 container col-lg-4 col-md-5">
+  <%= bootstrap_form_tag url: '/login' do |f| %>
+    <%= f.text_field :name, class: "text-black bg-light" %>
+    <%= f.submit "Log In", class: "color-3 btn btn-block text-white mb-4" %>
+  <% end %>
+    <p class="account">Don't have an account?</p>
+    <%= link_to "Sign Up", signup_path, class: "color-1 btn btn-block text-white" %>
+</div>
+<%= render '/users/footer' %>
