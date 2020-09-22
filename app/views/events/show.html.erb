@@ -1,7 +1,7 @@
 <%= render "navbar" %>
 <!-- Event card -->
-<div class="d-flex mt-5 row justify-content-between">
-  <div class="shadow col-lg-auto m-auto pb-3 pt-4 mt-5 container-sm col-md-5">
+<div class="d-flex mt-5 row justify-content-between pb-5">
+  <div class="shadow col-lg-auto pb-3 pt-4 container-sm col-md-5 d-flex justify-content-start align-items-start flex-column" style="height: 100%">
     <div class="row">
       <i class="fas fa-map-marker-alt mr-4"></i>
       <p><%= @event.location %></p>
@@ -20,15 +20,17 @@
     </div>
     <p>Host: <%= link_to "#{@event.creator.name}", user_path(@event.creator) %></p>
     <% if current_user == @event.creator %>
-      <div class="d-flex justify-content-end mr-3">
+      <div class="d-flex justify-content-end mr-3 w-100">
         <%= link_to '<i class="fas fa-trash mr-3"></i>'.html_safe, event_path(@event), method: :delete, data: { confirm: "Do you really want to delete this event?" } %>
-        <%= link_to '<i class="fas fa-edit mr-3"></i>'.html_safe, edit_event_path(@event) %>
+        <% unless @event.creator.hosted_events.past.include?(@event) %>
+          <%= link_to '<i class="fas fa-edit mr-3"></i>'.html_safe, edit_event_path(@event) %>
+        <% end %>
       </div>
     <% end %>
   </div>
   <!-- Invite card -->
-  <% if current_user == @event.creator %>
-    <div class="shadow col-lg-3 container-sm col-md-5 mt-5 mt-sm-5 mt-lg-0" style="overflow: scroll; overflow-x: hidden; overflow-y: auto">
+  <% if current_user == @event.creator && !@event.creator.hosted_events.past.include?(@event) %>
+    <div class="shadow col-lg-3 container-sm col-md-5 mt-5 mt-sm-5 mt-lg-0" style="overflow: scroll; overflow-x: hidden; overflow-y: auto;">
       <ul class="nav nav-tabs container" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <a class="nav-link active" id="users-tab" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="true">Users(<%= all_users.count - (@event.attendees.count + 1) %>)</a>
@@ -39,8 +41,8 @@
       </ul>
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
-          <div class="pt-5">
-            <% if all_users.any? %>
+          <div class="pt-5" style="height: 270px">
+            <% if all_users.any? && !(all_users.count - (@event.attendees.count + 1)).zero? %>
               <% all_users.each do |user| %>
               <% next if user == current_user || @event.attendees.include?(user) %>
               <div class="row mb-4 d-flex justify-content-between">
@@ -55,7 +57,7 @@
           </div>
         </div>
         <div class="tab-pane fade" id="attendees" role="tabpanel" aria-labelledby="attendees-tab">
-          <div class="pt-5">
+          <div class="pt-5" style="height: 270px">
             <% if @event.attendees.any? %>
               <% @event.attendees.each do |user| %>
                 <div class="row mb-4 d-flex justify-content-between">

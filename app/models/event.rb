@@ -7,7 +7,7 @@ class Event < ApplicationRecord
   has_many :attendees, through: :attendances, source: :user
   scope :past, -> { where("end_date < ?", DateTime.now) }
   scope :upcoming, -> { where("start_date > ?", DateTime.now) }
-  scope :today, -> { where("start_date BETWEEN ? AND ?", DateTime.now.beginning_of_day, DateTime.now.end_of_day) }
+  scope :today, -> { where("? BETWEEN start_date AND end_date", DateTime.now) }
   # Ex:- scope :active, -> {where(:active => true)}
   # Ex:- scope :active, -> {where(:active => true)}
 end

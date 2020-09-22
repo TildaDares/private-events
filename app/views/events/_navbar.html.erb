@@ -7,7 +7,7 @@
   <% if logged_in? %>
       <%= link_to "#{current_user.name}", user_path(current_user), class: "text-color-5 mr-3 nav-item mb-2 mb-md-1" %>
   <% end %>
-    <%= link_to "Create Event", new_event_path, class: "color-1 btn text-white shadow mr-3 nav-item mb-2 mb-md-0" %>
+    <%= link_to "Create Event", new_event_path, class: "color-2 btn text-white shadow mr-3 nav-item mb-2 mb-md-0" %>
     <% if logged_in? %>
       <%= link_to "Log Out", logout_path, method: :delete, data: { confirm: "Are you sure you want to logout?" }, class: "btn-danger btn text-white shadow nav-item" %>
     <% else %>
