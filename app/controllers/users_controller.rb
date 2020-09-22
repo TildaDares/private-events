@@ -8,7 +8,6 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      flash[:notice] = "User successfully created"
       redirect_to root_path
     else
       flash.now.alert = "Invalid name"
@@ -39,6 +38,7 @@ class UsersController < ApplicationController
     user.destroy
     redirect_to root_path
   end
+
   private
 
   def user_params

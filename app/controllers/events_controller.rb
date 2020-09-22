@@ -1,7 +1,6 @@
 require 'date'
 class EventsController < ApplicationController
   before_action :login_required, only: [:new, :edit, :destroy]
-  before_action :change_date_format, only: [:create]
   def index
     @events = Event.all
   end
@@ -14,7 +13,7 @@ class EventsController < ApplicationController
     @event = current_user.hosted_events.build(event_params)
     if @event.save
       flash[:notice] = "Event Created"
-      redirect_to user_path(current_user)
+      redirect_to root_path
     else
       render "new"
     end
@@ -51,10 +50,4 @@ class EventsController < ApplicationController
     params.require(:event).permit(:location, :end_date, :description, :start_date, :title)
   end
 
-  def change_date_format
-    end_date = params[:event][:end_date]
-    start_date = params[:event][:start_date]
-    params[:event][:start_date] = DateTime.parse(start_date).strftime("%A, %d %b %Y %l:%M %p")
-    params[:event][:end_date] = DateTime.parse(end_date).strftime("%A, %d %b %Y %l:%M %p")
-  end
 end

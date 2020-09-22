@@ -1,27 +1,75 @@
 <%= render "navbar" %>
-<div class="mb-5"></div>
-<div class="shadow col-lg-5 m-auto pb-3 pt-4 mt-5 container-sm col-md-5">
-  <div class="row">
-    <i class="fas fa-map-marker-alt mr-4"></i>
-    <p><%= @event.location %></p>
+<!-- Event card -->
+<div class="d-flex mt-5 row justify-content-between">
+  <div class="shadow col-lg-auto m-auto pb-3 pt-4 mt-5 container-sm col-md-5">
+    <div class="row">
+      <i class="fas fa-map-marker-alt mr-4"></i>
+      <p><%= @event.location %></p>
+    </div>
+    <div class="row">
+      <i class="far fa-calendar-alt mr-4"></i>
+      <p><%= change_date_format(@event.start_date) %> - <%= change_date_format(@event.end_date) %></p>
+    </div>
+    <div class="row">
+      <p class="mr-2">Title:</p>
+      <p><%= @event.title %></p>
+    </div>
+    <div class="row">
+      <p class="mr-2">Description:</p>
+      <p><%= @event.description %></p>
+    </div>
+    <p>Host: <%= link_to "#{@event.creator.name}", user_path(@event.creator) %></p>
+    <% if current_user == @event.creator %>
+      <div class="d-flex justify-content-end mr-3">
+        <%= link_to '<i class="fas fa-trash mr-3"></i>'.html_safe, event_path(@event), method: :delete, data: { confirm: "Do you really want to delete this event?" } %>
+        <%= link_to '<i class="fas fa-edit mr-3"></i>'.html_safe, edit_event_path(@event) %>
+      </div>
+    <% end %>
   </div>
-  <div class="row">
-    <i class="far fa-calendar-alt mr-4"></i>
-    <p><%= @event.start_date %> - <%= @event.end_date %></p>
-  </div>
-  <div class="row">
-    <p class="mr-2">Title:</p>
-    <p><%= @event.title %></p>
-  </div>
-  <div class="row">
-    <p class="mr-2">Description:</p>
-    <p><%= @event.description %></p>
-  </div>
-  <p>Host: <%= link_to "#{@event.creator.name}", user_path(@event.creator) %></p>
+  <!-- Invite card -->
   <% if current_user == @event.creator %>
-    <div class="d-flex justify-content-end mr-3">
-      <%= link_to '<i class="fas fa-trash mr-3"></i>'.html_safe, event_path(@event), method: :delete, data: { confirm: "Do you really want to delete this event?" } %>
-      <%= link_to '<i class="fas fa-edit mr-3"></i>'.html_safe, edit_event_path(@event) %>
+    <div class="shadow col-lg-3 container-sm col-md-5 mt-5 mt-sm-5 mt-lg-0" style="overflow: scroll; overflow-x: hidden; overflow-y: auto">
+      <ul class="nav nav-tabs container" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="users-tab" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="true">Users(<%= all_users.count - (@event.attendees.count + 1) %>)</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="attendees-tab" data-toggle="tab" href="#attendees" role="tab" aria-controls="attendees" aria-selected="false">Attendees(<%= @event.attendees.count %>)</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
+          <div class="pt-5">
+            <% if all_users.any? %>
+              <% all_users.each do |user| %>
+              <% next if user == current_user || @event.attendees.include?(user) %>
+              <div class="row mb-4 d-flex justify-content-between">
+                <p><%= link_to "#{user.name}", user_path(user), class: "text-dark" %></p>
+                <p><% event = @event %></p>
+                <%= link_to "Invite", attendances_path(:event_id => event, :user_id => user), method: :post, class: "btn color-2 text-white" %>
+              </div>
+            <% end %>
+            <% else %>
+              <p class="display-5 text-center">There are no users</p>
+            <% end %>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="attendees" role="tabpanel" aria-labelledby="attendees-tab">
+          <div class="pt-5">
+            <% if @event.attendees.any? %>
+              <% @event.attendees.each do |user| %>
+                <div class="row mb-4 d-flex justify-content-between">
+                  <p><%= link_to "#{user.name}", user_path(user), class: "text-dark" %></p>
+                  <p><% event = @event %></p>
+                  <%= link_to "Uninvite",attendance_path(:event_id => event, :user_id => user), method: :delete, class: "btn color-2 text-white" %>
+                </div>
+              <% end %>
+            <% else %>
+              <p class="display-5 text-center">There are no attendees</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>

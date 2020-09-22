@@ -1,3 +1,4 @@
+require 'date'
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
@@ -23,4 +24,16 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_user
+
+  def all_users
+    User.all
+  end
+  
+  helper_method :all_users
+
+  def change_date_format(date)
+    date.strftime("%A, %d %b %Y %l:%M %p")
+  end
+
+  helper_method :change_date_format
 end
