@@ -5,13 +5,6 @@ body {
     font-family: 'Chivo', sans-serif;
 }
 
-html {
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* Internet Explorer 10+ */
-}
-
 .row {
     margin-right: 0px !important;
     margin-left: 0px !important;
@@ -29,12 +22,6 @@ html {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-}
-
-html::-webkit-scrollbar {
-    /* WebKit */
-    width: 0;
-    height: 0;
 }
 
 .navbar-fixed-top.scrolled {
