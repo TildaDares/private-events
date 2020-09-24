@@ -1,4 +1,5 @@
 class AttendancesController < ApplicationController
+  before_action :login_required
   def create
     event = Event.find(params[:event_id])
     user = User.find(params[:user_id])
