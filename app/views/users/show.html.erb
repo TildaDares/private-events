@@ -40,7 +40,7 @@
               <p class="card-header color-3 text-color-5"><%= change_date_format(event.start_date) %></p>
               <div class="card-body">
                 <p class="card-subtitle"><%= event.location %></p>
-                <p class="card-title"><%= event.title %></p>
+                <h5 class="card-title text-color-1">Title: <%= event.title %></h5>
                 <div class="d-flex justify-content-end mr-3">
                   <% if current_user == @user %>
                     <%= link_to '<i class="fas fa-trash mr-3"></i>'.html_safe, event_path(event), method: :delete, data: { confirm: "Do you really want to delete this event?" } %>
@@ -145,7 +145,7 @@
               <p class="card-header color-3 text-color-5"><%= change_date_format(event.start_date) %></p>
               <div class="card-body">
                 <p class="card-subtitle"><%= event.location %></p>
-                <p class="card-title"><%= event.title %></p>
+                <h5 class="card-title text-color-1">Title: <%= event.title %></h5>
                 <div class="d-flex justify-content-end mr-3">
                   <%= link_to '<i class="fas fa-eye"></i>'.html_safe, event_path(event) %>
                 </div>

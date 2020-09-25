@@ -44,3 +44,9 @@ body {
 .no-events {
     margin-bottom: 100px;
 }
+
+@media(max-width: 600px) {
+    .bg-image {
+        background-attachment: scroll;
+    }
+}

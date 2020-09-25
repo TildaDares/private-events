@@ -14,20 +14,17 @@ import "bootstrap";
 import "../stylesheets/application";
 import "@fortawesome/fontawesome-free/js/all";
 import flatpickr from 'flatpickr';
-//import 'flatpickr/dist/flatpickr.min.css';
 import 'flatpickr/dist/themes/material_blue.css';
-import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
 
+//flatpickr
 document.addEventListener("turbolinks:load", () => {
-    flatpickr("[data-behaviour='flatpickr'], #start_date", {
+    flatpickr("[data-behaviour='flatpickr']", {
         altInput: true,
         enableTime: true,
-        "plugins": [new rangePlugin({
-            input: "#end_date"
-        })]
     })
 })
 
+//navbar
 $(function() {
     $(document).scroll(function() {
         var $nav = $(".navbar-fixed-top");

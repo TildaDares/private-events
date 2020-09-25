@@ -8,8 +8,8 @@
 <div class="pb-5">
   <%= bootstrap_form_for(@event) do |f| %>
     <div class="pt-2 shadow pb-5 mt-5 container col-lg-4 col-md-5 mb-5">
-      <%= f.text_field :start_date, data: { behaviour: 'flatpickr' }, class: "text-black bg-light", id: "start_date" %>
-      <%= f.text_field :end_date, data: { behaviour: 'flatpickr' }, class: "text-black bg-light", id: "end_date" %>
+      <%= f.text_field :start_date, data: { behaviour: 'flatpickr' }, class: "text-black bg-light" %>
+      <%= f.text_field :end_date, data: { behaviour: 'flatpickr' }, class: "text-black bg-light" %>
       <%= f.text_field :location, class: "text-black bg-light" %>
       <%= f.text_field :title, class: "text-black bg-light" %>
       <%= f.text_area :description, class: "text-black bg-light" %>
