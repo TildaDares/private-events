@@ -15,13 +15,17 @@ import "../stylesheets/application";
 import "@fortawesome/fontawesome-free/js/all";
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/themes/material_blue.css';
+import rangePlugin from "flatpickr/dist/plugins/rangePlugin";
 
 //flatpickr
 document.addEventListener("turbolinks:load", () => {
-    flatpickr("[data-behaviour='flatpickr']", {
+    flatpickr("[data-behaviour='flatpickr'], #start_date", {
         altInput: true,
         enableTime: true,
-        minDate: "today"
+        minDate: "today",
+        "plugins": [new rangePlugin({
+            input: "#end_date"
+        })]
     })
 })
 
