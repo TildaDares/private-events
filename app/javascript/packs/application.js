@@ -23,6 +23,7 @@ document.addEventListener("turbolinks:load", () => {
         altInput: true,
         enableTime: true,
         minDate: "today",
+        disableMobile: "true",
         "plugins": [new rangePlugin({
             input: "#end_date"
         })]
