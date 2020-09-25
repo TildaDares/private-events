@@ -11,8 +11,7 @@ class EventsController < ApplicationController
   def create
     @event = current_user.hosted_events.build(event_params)
     if @event.save
-      flash[:notice] = "Event created"
-      redirect_to root_path
+      redirect_to event_path(@event)
     else
       render "new"
     end
@@ -29,8 +28,7 @@ class EventsController < ApplicationController
   def update
     @event = current_user.hosted_events.find(params[:id])
     if @event.update(event_params)
-      flash[:notice] = "Event updated"
-      redirect_to user_path(current_user)
+      redirect_to event_path(@event)
     else
       render "new"
     end

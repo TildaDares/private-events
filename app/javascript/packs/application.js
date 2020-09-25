@@ -21,6 +21,7 @@ document.addEventListener("turbolinks:load", () => {
     flatpickr("[data-behaviour='flatpickr']", {
         altInput: true,
         enableTime: true,
+        minDate: "today"
     })
 })
 
